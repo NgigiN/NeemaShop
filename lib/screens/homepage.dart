@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shop_project/configs/theme.dart';
+import 'package:shop_project/widgets/custom_app_bar.dart';
+import 'package:shop_project/screens/soda.dart';
 import 'package:shop_project/widgets/fat_homepage_buttons.dart';
 import 'package:shop_project/screens/milk_product.dart';
 
@@ -10,14 +11,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellow[100],
-      appBar: AppBar(
-        title: const Text(
-          "Neema Milk Shop",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: AppTheme.primaryColor,
-        foregroundColor: Colors.black,
+      appBar: const CustomAppBar(
+        title: "Neema Milk Shop",
+        automaticallyImplyLeading: false, // Disable leading widget for HomePage
       ),
       body: Center(
         child: Column(
@@ -26,38 +22,46 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SquareIconButton(
-                  icon: Icons.water_drop_outlined,
-                  size: 200,
-                  color: Colors.white,
-                  label: "Milk",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const MilkProduct(label: "Milk", pricePerLitre: 80),
-                      ),
-                    );
-                  },
+                Expanded(
+                  child: SquareIconButton(
+                    imagePath: 'assets/images/milo.png',
+                    size: 200,
+                    color: Colors.white.withOpacity(0.9),
+                    label: "Milk",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MilkProduct(
+                            label: "Milk",
+                            pricePerLitre: 80,
+                            imagePath: 'assets/images/milo.png',
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(width: 10),
-                SquareIconButton(
-                  icon: Icons.water_drop_rounded,
-                  size: 200,
-                  color: Colors.yellow,
-                  label: "Mala",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MilkProduct(
-                          label: "Mala",
-                          pricePerLitre: 100,
+                Expanded(
+                  child: SquareIconButton(
+                    imagePath: 'assets/images/ka_mala.png',
+                    size: 200,
+                    color: Colors.yellow.shade300,
+                    label: "Mala",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MilkProduct(
+                            label: "Mala",
+                            pricePerLitre: 100,
+                            imagePath: 'assets/images/ka_mala.png',
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -65,36 +69,42 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SquareIconButton(
-                  icon: Icons.water_drop_outlined,
-                  size: 200,
-                  color: Colors.pink,
-                  label: "Yoghurt",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MilkProduct(
-                            label: "Yoghurt", pricePerLitre: 140),
-                      ),
-                    );
-                  },
+                Expanded(
+                  child: SquareIconButton(
+                    imagePath: 'assets/images/yonje.png',
+                    size: 200,
+                    color: Colors.pink.shade100,
+                    label: "Yoghurt",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MilkProduct(
+                            label: "Yoghurt",
+                            pricePerLitre: 140,
+                            imagePath: 'assets/images/yonje.png',
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 const SizedBox(width: 10),
-                SquareIconButton(
-                  icon: Icons.water_drop_rounded,
-                  size: 200,
-                  color: Colors.red,
-                  label: "Soda",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const MilkProduct(label: "Soda", pricePerLitre: 50),
-                      ),
-                    );
-                  },
+                Expanded(
+                  child: SquareIconButton(
+                    imagePath: 'assets/images/sonda.png',
+                    size: 200,
+                    color: Colors.red,
+                    label: "Soda",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SodaScreen(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

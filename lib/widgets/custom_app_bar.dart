@@ -3,8 +3,10 @@ import 'package:shop_project/configs/theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool automaticallyImplyLeading;
 
-  const CustomAppBar({super.key, required this.title});
+  const CustomAppBar(
+      {super.key, required this.title, this.automaticallyImplyLeading = true});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +16,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       backgroundColor: AppTheme.primaryColor,
-      foregroundColor: Colors.black,
+      foregroundColor: AppTheme.textColor,
       centerTitle: true,
-      automaticallyImplyLeading: true,
+      automaticallyImplyLeading: automaticallyImplyLeading,
     );
   }
 

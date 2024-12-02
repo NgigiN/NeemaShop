@@ -7,7 +7,7 @@ class AppTheme {
   static const Color accentColor = Color(0xFFF2D096); // Warm sand
   static const Color backgroundColor = Color(0xFFF7F9FC); // Light gray-blue
   static const Color textColor = Color(0xFF2D4059); // Dark blue-gray
-
+  static const Color specialColor = Color(0xFFB39DDB);
   // Additional colors
   static const Color errorColor = Color(0xFFE56B6F); // Soft red
   static const Color successColor = Color(0xFF81B29A); // Sage green
