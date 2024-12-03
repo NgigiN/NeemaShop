@@ -18,10 +18,10 @@ class MilkProduct extends StatefulWidget {
   });
 
   @override
-  _MilkProductState createState() => _MilkProductState();
+  MilkProductState createState() => MilkProductState();
 }
 
-class _MilkProductState extends State<MilkProduct> {
+class MilkProductState extends State<MilkProduct> {
   int _quantity = 1;
   final cart = FlutterCart();
 

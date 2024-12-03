@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_project/screens/main_screen.dart';
@@ -39,33 +41,57 @@ class _LoginState extends State<Login> {
     await prefs.setString('email', email);
   }
 
-  void _login() {
-    final email = _emailController.text;
-    final password = _passwordController.text;
-
-    // Basic validation
-    if (email.isEmpty || password.isEmpty) {
-      setState(() {
-        _errorMessage = 'Please enter both email and password';
-      });
+  void _login() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please enter both email and password',
+        backgroundColor: AppTheme.errorColor,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+      );
       return;
     }
 
-    // Sample hardcoded credentials
-    const hardcodedEmail = 'user@example.com';
-    const hardcodedPassword = 'password123';
+    try {
+      final response = await http.post(
+        Uri.parse('http://192.168.24.58:8000/api/login/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': _emailController.text,
+          'password': _passwordController.text,
+        }),
+      );
 
-    // Authentication logic
-    if (email == hardcodedEmail && password == hardcodedPassword) {
-      // Save the email
-      _saveEmail(email);
-
-      // Navigate to the homepage
-      Get.to(() => const MainScreen());
-    } else {
-      setState(() {
-        _errorMessage = 'Invalid email or password';
-      });
+      if (response.statusCode == 200) {
+        Get.snackbar(
+          'Success',
+          'Login successful!',
+          backgroundColor: AppTheme.successColor,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
+        );
+        _saveEmail(_emailController.text);
+        Get.to(() => const MainScreen());
+      } else {
+        Get.snackbar(
+          'Error',
+          'Invalid email or password',
+          backgroundColor: AppTheme.errorColor,
+          colorText: Colors.white,
+          snackPosition: SnackPosition.TOP,
+        );
+      }
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        backgroundColor: AppTheme.errorColor,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+      );
     }
   }
 
@@ -184,43 +210,6 @@ class _LoginState extends State<Login> {
                 child: const Text("Login"),
               ),
               const SizedBox(height: 20),
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey, width: 2.0),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.facebook,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.grey, width: 2.0),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.g_mobiledata_outlined,
-                            color: Colors.teal,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

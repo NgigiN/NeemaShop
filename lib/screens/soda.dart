@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cart/flutter_cart.dart';
+import 'package:get/get.dart';
 import 'package:shop_project/configs/theme.dart';
 import 'package:shop_project/screens/main_screen.dart';
 import 'package:shop_project/widgets/add_to_cart_button.dart';
 import 'package:shop_project/widgets/custom_snackbar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Soda {
   final String name;
@@ -22,10 +25,10 @@ class SodaScreen extends StatefulWidget {
   const SodaScreen({super.key});
 
   @override
-  _SodaScreenState createState() => _SodaScreenState();
+  SodaScreenState createState() => SodaScreenState();
 }
 
-class _SodaScreenState extends State<SodaScreen> {
+class SodaScreenState extends State<SodaScreen> {
   List<Soda> sodas = [];
   Map<int, int> quantities = {};
   final cart = FlutterCart();
@@ -37,28 +40,37 @@ class _SodaScreenState extends State<SodaScreen> {
   }
 
   Future<void> fetchSodas() async {
-    // Simulate fetching data from a database
-    await Future.delayed(const Duration(seconds: 0));
-    setState(() {
-      sodas = [
-        Soda(
-            name: 'Coke',
-            quantity: 50,
-            price: 1.5,
-            imagePath: 'assets/images/sonda.png'),
-        Soda(
-            name: 'Pepsi',
-            quantity: 30,
-            price: 1.2,
-            imagePath: 'assets/images/sonda.png'),
-        Soda(
-            name: 'Sprite',
-            quantity: 20,
-            price: 1.0,
-            imagePath: 'assets/images/sonda.png'),
-      ];
-      quantities = {for (var i = 0; i < sodas.length; i++) i: 0};
-    });
+    final url = Uri.parse('http://127.0.0.1:8000/products/soda/price/');
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        setState(() {
+          sodas = data.map((item) {
+            return Soda(
+              name: item['name'],
+              quantity: item['stock'],
+              price: double.parse(item['price']),
+              imagePath: item['imagePath'] ?? 'assets/images/sonda.png',
+            );
+          }).toList();
+
+          // Initialize quantities with 0 for each soda.
+          quantities = {for (var i = 0; i < sodas.length; i++) i: 0};
+        });
+      } else {
+        throw Exception('Failed to load sodas');
+      }
+    } catch (error) {
+      Get.snackbar(
+        'Error',
+        'Failed to load sodas. Error: $error',
+        backgroundColor: AppTheme.errorColor,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+      );
+      // Optionally show an error message in the UI
+    }
   }
 
   void incrementQuantity(int index) {
@@ -152,7 +164,7 @@ class _SodaScreenState extends State<SodaScreen> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text('Price: \$${soda.price}'),
+                        Text('Ksh ${soda.price}'),
                         const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +207,7 @@ class _SodaScreenState extends State<SodaScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          'Total: \$${calculateTotal()}',
+          'Total: ${calculateTotal()}',
           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),

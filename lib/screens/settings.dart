@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_project/widgets/custom_app_bar.dart';
+import 'package:get/get.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -32,6 +33,13 @@ class SettingsPage extends StatelessWidget {
                   _showEditProfileDialog(context);
                 },
                 child: const Text('Update'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Get.toNamed('/login');
+                },
+                child: const Text('Logout'),
               ),
             ],
           ),

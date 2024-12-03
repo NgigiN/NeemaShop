@@ -44,6 +44,15 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Monstserrat
+      fonts:
+        - asset: assets/fonts/Montserrat,Playfair_Display/Montserrat/Montserrat-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/Montserrat,Playfair_Display/Montserrat/Montserrat-VariableFont_wght.ttf
+    - family: Playfair Display
+      fonts:
+        - asset: assets/fonts/Montserrat,Playfair_Display/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/Montserrat,Playfair_Display/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

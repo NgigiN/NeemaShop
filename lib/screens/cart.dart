@@ -7,10 +7,10 @@ class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
-  _CartScreenState createState() => _CartScreenState();
+  CartScreenState createState() => CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class CartScreenState extends State<CartScreen> {
   final FlutterCart cart = FlutterCart();
 
   void _removeItem(CartModel item) {
