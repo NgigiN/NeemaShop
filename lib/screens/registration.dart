@@ -64,13 +64,13 @@ class _SignUpState extends State<SignUp> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.24.58:8000/api/register/'),
+        Uri.parse('http://127.0.0.1:8000/api/register/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, String>{
-          'firstName': _firstNameController.text,
-          'lastName': _lastNameController.text,
+          'first_name': _firstNameController.text,
+          'last_name': _lastNameController.text,
           'email': _emailController.text,
           'phone_number': _phonenumberController.text,
           'username': _usernameController.text,

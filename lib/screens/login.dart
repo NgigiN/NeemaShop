@@ -41,6 +41,15 @@ class _LoginState extends State<Login> {
     await prefs.setString('email', email);
   }
 
+  Future<void> _saveUserData(Map<String, dynamic> userData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_id', userData['id'].toString());
+    await prefs.setString('email', userData['email']);
+    await prefs.setString('phone_number', userData['phone_number']);
+    await prefs.setString('first_name', userData['first_name']);
+    await prefs.setString('last_name', userData['last_name']);
+  }
+
   void _login() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       Get.snackbar(
@@ -55,7 +64,7 @@ class _LoginState extends State<Login> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.24.58:8000/api/login/'),
+        Uri.parse('http://127.0.0.1:8000/api/login/'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -66,6 +75,9 @@ class _LoginState extends State<Login> {
       );
 
       if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        final userData = responseData['user'];
+
         Get.snackbar(
           'Success',
           'Login successful!',
@@ -74,6 +86,7 @@ class _LoginState extends State<Login> {
           snackPosition: SnackPosition.TOP,
         );
         _saveEmail(_emailController.text);
+        _saveUserData(userData);
         Get.to(() => const MainScreen());
       } else {
         Get.snackbar(

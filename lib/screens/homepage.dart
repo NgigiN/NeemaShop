@@ -26,7 +26,7 @@ class HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetchPrices() async {
-    final url = Uri.parse('http://192.168.24.58:8000/products/milk/price/');
+    final url = Uri.parse('http://127.0.0.1:8000/products/milk/price/');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {

@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  'Welcome to Neema Shop!\n\nYour local shop for fresh pasteurized milk, sour milk, yoghurt, soda and more. The Neema Experience now at your fingertips!',
+                  'Welcome to Neema Shop!\n\nYour one stop solution for all milk products and Soda in wholesale!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
