@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../configs/theme.dart';
 
 class SquareIconButton extends StatelessWidget {
   final String imagePath;
@@ -14,6 +15,7 @@ class SquareIconButton extends StatelessWidget {
       required this.color,
       required this.onPressed,
       required this.label});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,7 +39,7 @@ class SquareIconButton extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               label,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: AppTheme.lightTheme.textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
           ],

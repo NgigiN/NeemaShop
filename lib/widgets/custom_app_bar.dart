@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_project/configs/theme.dart';
+import '../../configs/theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        style: AppTheme.lightTheme.appBarTheme.titleTextStyle,
       ),
       backgroundColor: AppTheme.primaryColor,
       foregroundColor: AppTheme.textColor,

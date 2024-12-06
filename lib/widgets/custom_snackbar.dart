@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_project/configs/theme.dart';
+import '../../configs/theme.dart';
 
 class CustomSnackBar {
   static void show({
@@ -10,7 +10,8 @@ class CustomSnackBar {
     final snackBar = SnackBar(
       content: Text(
         message,
-        style: const TextStyle(color: Colors.white),
+        style: AppTheme.lightTheme.textTheme.bodyLarge!
+            .copyWith(color: Colors.white),
       ),
       backgroundColor: isError ? AppTheme.errorColor : AppTheme.successColor,
       behavior: SnackBarBehavior.floating,

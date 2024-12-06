@@ -1,66 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:shop_project/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:shop_project/controllers/settings_controller.dart';
+import 'package:shop_project/models/user_model.dart';
+import 'package:provider/provider.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  String _username = '';
-  String _phoneNumber = '';
-  String _email = '';
-  int _points = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserData();
-  }
-
-  Future<void> _loadUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _username = prefs.getString('username') ?? '';
-      _phoneNumber = prefs.getString('phone_number') ?? '';
-      _email = prefs.getString('email') ?? '';
-      _points = prefs.getInt('points') ?? 0;
-    });
-  }
-
-  Future<void> updateUser(Map<String, dynamic> userData) async {
-    final url = Uri.parse('http://localhost:8000/api/update-user/');
-    final headers = {
-      'Content-Type': 'application/json',
-    };
-
-    final response = await http.put(
-      url,
-      headers: headers,
-      body: jsonEncode(userData),
-    );
-
-    if (response.statusCode == 200) {
-      // Update shared preferences with the new data
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-          'username', userData['first_name'] + ' ' + userData['last_name']);
-      await prefs.setString('phone_number', userData['phone_number']);
-      await prefs.setString('email', userData['email']);
-      // Add other fields as needed
-    } else {
-      throw Exception('Failed to update user data');
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final settingsController = Provider.of<SettingsController>(context);
+
     return Scaffold(
       appBar: const CustomAppBar(
         title: "Settings",
@@ -77,14 +28,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 child: Icon(Icons.person, size: 50),
               ),
               const SizedBox(height: 20),
-              _buildProfileInfo('Name', _username),
-              _buildProfileInfo('Phone Number', _phoneNumber),
-              _buildProfileInfo('Email', _email),
-              _buildProfileInfo('Points', _points.toString()),
+              _buildProfileInfo('Name',
+                  '${settingsController.user.firstName} ${settingsController.user.lastName}'),
+              _buildProfileInfo(
+                  'Phone Number', settingsController.user.phoneNumber),
+              _buildProfileInfo('Email', settingsController.user.email),
+              _buildProfileInfo(
+                  'Points', '1200'), // Assuming points are static for now
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  _showEditProfileDialog(context);
+                  _showEditProfileDialog(context, settingsController);
                 },
                 child: const Text('Update'),
               ),
@@ -117,12 +71,15 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  void _showEditProfileDialog(BuildContext context) {
-    TextEditingController nameController =
-        TextEditingController(text: _username);
+  void _showEditProfileDialog(
+      BuildContext context, SettingsController settingsController) {
+    TextEditingController nameController = TextEditingController(
+        text:
+            '${settingsController.user.firstName} ${settingsController.user.lastName}');
     TextEditingController phoneController =
-        TextEditingController(text: _phoneNumber);
-    TextEditingController emailController = TextEditingController(text: _email);
+        TextEditingController(text: settingsController.user.phoneNumber);
+    TextEditingController emailController =
+        TextEditingController(text: settingsController.user.email);
 
     showDialog(
       context: context,
@@ -147,14 +104,13 @@ class _SettingsPageState extends State<SettingsPage> {
             ElevatedButton(
               onPressed: () async {
                 try {
-                  await updateUser({
-                    'first_name': nameController.text.split(' ')[0],
-                    'last_name': nameController.text.split(' ')[1],
-                    'phone_number': phoneController.text,
-                    'email': emailController.text,
-                  });
-                  // Reload user data after update
-                  _loadUserData();
+                  await settingsController.updateUserData(UserModel(
+                    id: settingsController.user.id,
+                    email: emailController.text,
+                    phoneNumber: phoneController.text,
+                    firstName: nameController.text.split(' ')[0],
+                    lastName: nameController.text.split(' ')[1],
+                  ));
                   Navigator.of(context).pop();
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
