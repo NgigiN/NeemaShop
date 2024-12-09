@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cart/flutter_cart.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_project/configs/theme.dart';
+import 'package:shop_project/controllers/cart_controller.dart';
 import 'package:shop_project/controllers/settings_controller.dart';
 import 'package:shop_project/utils/routes.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  var cart = FlutterCart();
-  await cart.initializeCart(isPersistenceSupportEnabled: true);
+  Get.put(CartController());
 
   runApp(const NeemaShopApp());
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cart/flutter_cart.dart';
 import 'package:shop_project/configs/theme.dart';
+import 'package:shop_project/controllers/cart_controller.dart';
 import 'package:shop_project/widgets/custom_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -16,6 +17,7 @@ class CartScreen extends StatefulWidget {
 
 class CartScreenState extends State<CartScreen> {
   final FlutterCart cart = FlutterCart();
+  final CartController cartController = Get.find<CartController>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   bool _isLoading = false;
@@ -65,13 +67,13 @@ class CartScreenState extends State<CartScreen> {
 
   void _removeItem(CartModel item) {
     setState(() {
-      cart.removeItem(item.productId, item.variants);
+      cartController.removeItem(item.productId, item.variants);
     });
   }
 
   void _updateQuantity(CartModel item, int newQuantity) {
     setState(() {
-      cart.updateQuantity(item.productId, item.variants, newQuantity);
+      cartController.updateQuantity(item.productId, item.variants, newQuantity);
     });
   }
 
@@ -175,7 +177,7 @@ class CartScreenState extends State<CartScreen> {
       );
 
       if (response.statusCode == 201) {
-        cart.clearCart();
+        cartController.clearCart();
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Booking confirmed!')),

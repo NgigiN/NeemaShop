@@ -39,16 +39,16 @@ class Login extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 30),
-              CustomTextField(
-                controller: loginController.passwordController,
-                labelText: "Password",
-                obscureText: loginController.obscureText.value,
-                isHovered: loginController.isHoveredPassword,
-                onEnter: () => loginController.isHoveredPassword = true,
-                onExit: () => loginController.isHoveredPassword = false,
-                onPressed: () => loginController.obscureText.value =
-                    !loginController.obscureText.value,
-              ),
+              Obx(() => CustomTextField(
+                    controller: loginController.passwordController,
+                    labelText: "Password",
+                    obscureText: loginController.obscureText.value,
+                    isHovered: loginController.isHoveredPassword,
+                    onEnter: () => loginController.isHoveredPassword = true,
+                    onExit: () => loginController.isHoveredPassword = false,
+                    onPressed: () => loginController.obscureText.value =
+                        !loginController.obscureText.value,
+                  )),
               const SizedBox(height: 20),
               Align(
                 alignment: Alignment.centerRight,

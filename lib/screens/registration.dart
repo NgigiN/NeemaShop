@@ -72,27 +72,29 @@ class SignUp extends StatelessWidget {
                 onExit: () => signUpController.isHoveredPhoneNumber = false,
               ),
               const SizedBox(height: 20),
-              CustomTextField(
-                controller: signUpController.passwordController,
-                labelText: "Password",
-                obscureText: signUpController.obscureText.value,
-                isHovered: signUpController.isHoveredPassword,
-                onEnter: () => signUpController.isHoveredPassword = true,
-                onExit: () => signUpController.isHoveredPassword = false,
-                onPressed: () => signUpController.obscureText.value =
-                    !signUpController.obscureText.value,
-              ),
+              Obx(() => CustomTextField(
+                    controller: signUpController.passwordController,
+                    labelText: "Password",
+                    obscureText: signUpController.obscureText.value,
+                    isHovered: signUpController.isHoveredPassword,
+                    onEnter: () => signUpController.isHoveredPassword = true,
+                    onExit: () => signUpController.isHoveredPassword = false,
+                    onPressed: () => signUpController.obscureText.value =
+                        !signUpController.obscureText.value,
+                  )),
               const SizedBox(height: 20),
-              CustomTextField(
-                controller: signUpController.confirmPasswordController,
-                labelText: "Re-enter Password",
-                obscureText: signUpController.obscureText.value,
-                isHovered: signUpController.isHoveredConfirmPassword,
-                onEnter: () => signUpController.isHoveredConfirmPassword = true,
-                onExit: () => signUpController.isHoveredConfirmPassword = false,
-                onPressed: () => signUpController.obscureText.value =
-                    !signUpController.obscureText.value,
-              ),
+              Obx(() => CustomTextField(
+                    controller: signUpController.confirmPasswordController,
+                    labelText: "Re-enter Password",
+                    obscureText: signUpController.obscureText.value,
+                    isHovered: signUpController.isHoveredConfirmPassword,
+                    onEnter: () =>
+                        signUpController.isHoveredConfirmPassword = true,
+                    onExit: () =>
+                        signUpController.isHoveredConfirmPassword = false,
+                    onPressed: () => signUpController.obscureText.value =
+                        !signUpController.obscureText.value,
+                  )),
               const SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
