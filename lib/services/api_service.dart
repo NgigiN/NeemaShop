@@ -47,22 +47,17 @@ class ApiService {
     return await http.post(url, headers: headers, body: body);
   }
 
-  Future<UserModel> updateUser(UserModel user) async {
-    final url = Uri.parse('$baseUrl/update-user/');
+  Future<http.Response> updateUser(
+      String endpoint, Map<String, dynamic> data) async {
+    final url = Uri.parse('$baseUrl$endpoint');
     final headers = {
       'Content-Type': 'application/json',
     };
 
-    final response = await http.put(
+    return await http.put(
       url,
       headers: headers,
-      body: jsonEncode(user.toJson()),
+      body: jsonEncode(data),
     );
-
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body)['user']);
-    } else {
-      throw Exception('Failed to update user data');
-    }
   }
 }

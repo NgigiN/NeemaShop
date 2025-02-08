@@ -22,6 +22,15 @@ class SharedPreferencesService {
     await prefs.setString('last_name', userData['last_name']);
   }
 
+  Future clearUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user_id');
+    await prefs.remove('email');
+    await prefs.remove('phone_number');
+    await prefs.remove('first_name');
+    await prefs.remove('last_name');
+  }
+
   Future<UserModel> getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return UserModel(

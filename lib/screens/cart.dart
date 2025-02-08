@@ -16,7 +16,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
-  final FlutterCart cart = FlutterCart();
   final CartController cartController = Get.find<CartController>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
@@ -67,13 +66,14 @@ class CartScreenState extends State<CartScreen> {
 
   void _removeItem(CartModel item) {
     setState(() {
-      cartController.removeItem(item.productId, item.variants);
+      cartController.cart.removeItem(item.productId, item.variants);
     });
   }
 
   void _updateQuantity(CartModel item, int newQuantity) {
     setState(() {
-      cartController.updateQuantity(item.productId, item.variants, newQuantity);
+      cartController.cart
+          .updateQuantity(item.productId, item.variants, newQuantity);
     });
   }
 
@@ -104,7 +104,7 @@ class CartScreenState extends State<CartScreen> {
                 ),
                 const SizedBox(height: 16),
                 const Text('Items in your cart:'),
-                ...cart.cartItemsList.map((item) {
+                ...cartController.cart.cartItemsList.map((item) {
                   return ListTile(
                     title: Text(item.productName),
                     subtitle: Text(
@@ -113,7 +113,7 @@ class CartScreenState extends State<CartScreen> {
                 }),
                 const SizedBox(height: 10),
                 Text(
-                  'Total: Ksh ${cart.total.toStringAsFixed(2)}',
+                  'Total: Ksh ${cartController.cart.total.toStringAsFixed(2)}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -165,8 +165,8 @@ class CartScreenState extends State<CartScreen> {
           'email': _userEmail,
           'customer_name': nameController.text,
           'phone_number': phoneController.text,
-          'total_price': cart.total.toString(),
-          'items': cart.cartItemsList
+          'total_price': cartController.cart.total.toString(),
+          'items': cartController.cart.cartItemsList
               .map((item) => {
                     'product_name': item.productName,
                     'quantity': item.quantity,
@@ -300,7 +300,7 @@ class CartScreenState extends State<CartScreen> {
       ),
       body: Column(
         children: [
-          if (cart.cartItemsList.isEmpty)
+          if (cartController.cart.cartItemsList.isEmpty)
             const Expanded(
               child: Center(
                 child: Text(
@@ -312,9 +312,9 @@ class CartScreenState extends State<CartScreen> {
           else
             Expanded(
               child: ListView.builder(
-                itemCount: cart.cartItemsList.length,
+                itemCount: cartController.cart.cartItemsList.length,
                 itemBuilder: (context, index) {
-                  final item = cart.cartItemsList[index];
+                  final item = cartController.cart.cartItemsList[index];
                   return ListTile(
                     leading: Image.asset(
                       item.productMeta?['imagePath'] ?? '',
@@ -358,7 +358,7 @@ class CartScreenState extends State<CartScreen> {
             child: Column(
               children: [
                 Text(
-                  'Total: Ksh ${cart.total.toStringAsFixed(2)}',
+                  'Total: Ksh ${cartController.cart.total.toStringAsFixed(2)}',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -370,12 +370,13 @@ class CartScreenState extends State<CartScreen> {
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: cart.cartItemsList.isEmpty
-                              ? Colors.grey
-                              : AppTheme.primaryColor,
+                          backgroundColor:
+                              cartController.cart.cartItemsList.isEmpty
+                                  ? Colors.grey
+                                  : AppTheme.primaryColor,
                           minimumSize: const Size(double.infinity, 50),
                         ),
-                        onPressed: cart.cartItemsList.isEmpty
+                        onPressed: cartController.cart.cartItemsList.isEmpty
                             ? null
                             : _showBookingDialog,
                         child: const Text('Book Now'),

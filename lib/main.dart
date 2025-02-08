@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Get.put(CartController());
+  Get.put(SettingsController());
 
   runApp(const NeemaShopApp());
 }
@@ -18,19 +19,14 @@ class NeemaShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SettingsController()),
-      ],
-      child: GetMaterialApp(
-        title: 'Neema Milk Shop',
-        theme: ThemeData(
-          primaryColor: AppTheme.primaryColor,
-        ),
-        initialRoute: '/',
-        getPages: Routes.routes,
-        debugShowCheckedModeBanner: false,
+    return GetMaterialApp(
+      title: 'Neema Milk Shop',
+      theme: ThemeData(
+        primaryColor: AppTheme.primaryColor,
       ),
+      initialRoute: '/',
+      getPages: Routes.routes,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

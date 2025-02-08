@@ -16,6 +16,9 @@ class Routes {
     GetPage(name: '/login', page: () => const Login()),
     GetPage(name: '/homepage', page: () => const HomePage()),
     GetPage(name: '/cart', page: () => const CartScreen()),
-    GetPage(name: '/settings', page: () => const SettingsPage())
+    GetPage(
+        name: '/settings',
+        page: () => const SettingsPage(),
+        binding: SettingsBinding()),
   ];
 }
