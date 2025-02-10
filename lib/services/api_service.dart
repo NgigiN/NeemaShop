@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  static const String baseUrl = 'http://localhost:8000/api';
+  static const String baseUrl = 'http://localhost:8000';
 
   Future<http.Response> registerUser({
     required String firstName,
@@ -14,7 +14,7 @@ class ApiService {
     required String password,
     required String confirmPassword,
   }) async {
-    final url = Uri.parse('$baseUrl/register/');
+    final url = Uri.parse('$baseUrl/users/register/');
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
@@ -35,7 +35,7 @@ class ApiService {
     required String email,
     required String password,
   }) async {
-    final url = Uri.parse('$baseUrl/login/');
+    final url = Uri.parse('$baseUrl/users/login/');
     final headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     };
@@ -49,7 +49,7 @@ class ApiService {
 
   Future<http.Response> updateUser(
       String endpoint, Map<String, dynamic> data) async {
-    final url = Uri.parse('$baseUrl$endpoint');
+    final url = Uri.parse('$baseUrl/users/$endpoint');
     final headers = {
       'Content-Type': 'application/json',
     };
@@ -60,4 +60,9 @@ class ApiService {
       body: jsonEncode(data),
     );
   }
+
+  static String get bookingsUrl => '$baseUrl/products/bookings/';
+  static String get bookingHistoryUrl => '$baseUrl/products/bookings/history/';
+  static String get milkPricesUrl => '$baseUrl/products/milk/price/';
+  static String get sodaPricesUrl => '$baseUrl/products/soda/price/';
 }

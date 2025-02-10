@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cart/flutter_cart.dart';
 import 'package:shop_project/configs/theme.dart';
 import 'package:shop_project/controllers/cart_controller.dart';
+import 'package:shop_project/services/api_service.dart';
 import 'package:shop_project/widgets/custom_app_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -156,7 +157,7 @@ class CartScreenState extends State<CartScreen> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8000/products/bookings/'),
+        Uri.parse(ApiService.bookingsUrl),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Token $_userToken',
@@ -201,7 +202,7 @@ class CartScreenState extends State<CartScreen> {
   Future<List<dynamic>> fetchHistory() async {
     try {
       final response = await http.get(
-        Uri.parse('http://localhost:8000/products/bookings/history/$_userName'),
+        Uri.parse('${ApiService.bookingHistoryUrl}$_userName'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Token $_userToken',

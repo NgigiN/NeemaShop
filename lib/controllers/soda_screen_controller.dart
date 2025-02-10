@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cart/flutter_cart.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop_project/services/api_service.dart';
 import 'dart:convert';
 import '../configs/theme.dart';
 import '../widgets/custom_snackbar.dart';
@@ -34,7 +35,7 @@ class SodaScreenController extends GetxController {
   }
 
   Future<void> fetchSodas() async {
-    final url = Uri.parse('http://127.0.0.1:8000/products/soda/price/');
+    final url = Uri.parse(ApiService.sodaPricesUrl);
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
