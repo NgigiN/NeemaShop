@@ -50,7 +50,7 @@ class SodaScreenController extends GetxController {
         }).toList());
 
         // Initialize quantities with 0 for each soda.
-        quantities.assignAll({for (var i = 0; i < sodas.length; i++) i: 0});
+        quantities.assignAll({for (var i = 0; i < sodas.length; i++) i: 1});
         update();
       } else {
         throw Exception('Failed to load sodas');
