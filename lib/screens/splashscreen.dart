@@ -2,9 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../screens/login.dart';
 import '../../configs/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 20), () {
+      Get.to(() => const Login());
+    });
+    _checkFirstLaunch();
+  }
+
+  Future<void> _checkFirstLaunch() async {
+    final prefs = await SharedPreferences.getInstance();
+    final firstLaunch = prefs.getBool('first_launch') ?? true;
+
+    if (firstLaunch) {
+      await prefs.setBool('first_lauch', false);
+      await Future.delayed(const Duration(seconds: 2));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
