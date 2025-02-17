@@ -65,6 +65,7 @@ class SignUp extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               CustomTextField(
+                keyboardType: TextInputType.number,
                 controller: signUpController.phoneNumberController,
                 labelText: "Phone Number",
                 isHovered: signUpController.isHoveredPhoneNumber,

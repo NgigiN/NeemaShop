@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shop_project/configs/theme.dart';
 import 'package:shop_project/controllers/cart_controller.dart';
 import 'package:shop_project/controllers/settings_controller.dart';
@@ -8,6 +7,7 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   Get.put(CartController());
   Get.put(SettingsController());
 

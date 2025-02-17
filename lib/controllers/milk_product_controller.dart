@@ -17,6 +17,12 @@ class MilkProductController extends GetxController {
     required this.imagePath,
   });
 
+  @override
+  void onClose() {
+    quantity.close();
+    super.onClose();
+  }
+
   void incrementQuantity() {
     quantity++;
   }

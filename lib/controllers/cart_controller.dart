@@ -7,6 +7,7 @@ class CartController extends GetxController {
   final FlutterCart cart = FlutterCart();
   var cartLength = 0.obs;
   var isInitialized = false.obs;
+  var cartItems = <CartModel>[].obs;
 
   @override
   void onInit() {
@@ -24,6 +25,7 @@ class CartController extends GetxController {
 
   void _updateCartLength() {
     cartLength.value = cart.cartItemsList.length;
+    cartItems.value = List<CartModel>.from(cart.cartItemsList);
   }
 
   void addToCart(CartModel cartModel) {

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_project/widgets/custom_app_bar.dart';
 import 'package:get/get.dart';
-import 'package:shop_project/controllers/login_controller.dart';
 import 'package:shop_project/controllers/settings_controller.dart';
 import 'package:shop_project/models/user_model.dart';
-import 'package:provider/provider.dart';
 
 class SettingsBinding implements Bindings {
   @override

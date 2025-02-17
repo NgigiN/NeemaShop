@@ -6,6 +6,7 @@ import '../services/shared_preferences_service.dart';
 import '../configs/theme.dart';
 
 class LoginController extends GetxController {
+  var isLoading = false.obs;
   final ApiService _apiService = ApiService();
   final SharedPreferencesService _sharedPreferencesService =
       SharedPreferencesService();
@@ -49,7 +50,7 @@ class LoginController extends GetxController {
       );
       return;
     }
-
+    isLoading.value = true;
     try {
       final response = await _apiService.loginUser(
         email: emailController.text,
@@ -87,6 +88,8 @@ class LoginController extends GetxController {
         colorText: Colors.white,
         snackPosition: SnackPosition.TOP,
       );
+    } finally {
+      isLoading.value = false;
     }
   }
 }

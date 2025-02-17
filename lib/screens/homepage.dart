@@ -37,16 +37,25 @@ class HomePage extends StatelessWidget {
                               color: Colors.white.withOpacity(0.9),
                               label: "Milk",
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MilkProduct(
-                                      label: "Milk",
-                                      pricePerLitre: double.parse(
-                                          controller.prices['Milk']),
-                                      imagePath: 'assets/images/milo.png',
-                                    ),
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => MilkProduct(
+                                //       label: "Milk",
+                                //       pricePerLitre: double.parse(
+                                //           controller.prices['Milk']),
+                                //       imagePath: 'assets/images/milo.png',
+                                //     ),
+                                //   ),
+                                // );
+                                Get.to(
+                                  () => MilkProduct(
+                                    label: "Milk",
+                                    pricePerLitre:
+                                        double.parse(controller.prices['Milk']),
+                                    imagePath: 'assets/images/milo.png',
                                   ),
+                                  preventDuplicates: false,
                                 );
                               },
                             ),
@@ -59,16 +68,25 @@ class HomePage extends StatelessWidget {
                               color: Colors.yellow.shade300,
                               label: "Mala",
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MilkProduct(
-                                      label: "Mala",
-                                      pricePerLitre: double.parse(
-                                          controller.prices['Mala']),
-                                      imagePath: 'assets/images/ka_mala.png',
-                                    ),
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => MilkProduct(
+                                //       label: "Mala",
+                                //       pricePerLitre: double.parse(
+                                //           controller.prices['Mala']),
+                                //       imagePath: 'assets/images/ka_mala.png',
+                                //     ),
+                                //   ),
+                                // );
+                                Get.to(
+                                  () => MilkProduct(
+                                    label: "Mala",
+                                    pricePerLitre:
+                                        double.parse(controller.prices['Mala']),
+                                    imagePath: 'assets/images/ka_mala.png',
                                   ),
+                                  preventDuplicates: false,
                                 );
                               },
                             ),
@@ -86,16 +104,25 @@ class HomePage extends StatelessWidget {
                               color: Colors.pink.shade100,
                               label: "Yoghurt",
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MilkProduct(
-                                      label: "Yoghurt",
-                                      pricePerLitre: double.parse(
-                                          controller.prices['Yoghurt']),
-                                      imagePath: 'assets/images/yonje.png',
-                                    ),
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => MilkProduct(
+                                //       label: "Yoghurt",
+                                //       pricePerLitre: double.parse(
+                                //           controller.prices['Yoghurt']),
+                                //       imagePath: 'assets/images/yonje.png',
+                                //     ),
+                                //   ),
+                                // );
+                                Get.to(
+                                  () => MilkProduct(
+                                    label: "Yoghurt",
+                                    pricePerLitre: double.parse(
+                                        controller.prices['Yoghurt']),
+                                    imagePath: 'assets/images/yonje.png',
                                   ),
+                                  preventDuplicates: false,
                                 );
                               },
                             ),
